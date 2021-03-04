@@ -1,0 +1,14 @@
+2021-03-03 23:17:55,430 [INFO] YGX: Traceback (most recent call last):
+  File "C:/Users/ygx/Desktop/AutoSendMsg/run.py", line 22, in <module>
+    run(BASE_PATH, log)
+  File "C:\Users\ygx\Desktop\AutoSendMsg\bin\ui.py", line 246, in run
+    log.logger.info('start')
+AttributeError: 'str' object has no attribute 'logger'
+
+2021-03-03 23:18:16,035 [INFO] YGX: start
+2021-03-03 23:21:27,413 [INFO] YGX: start
+2021-03-03 23:21:53,369 [INFO] YGX: start
+2021-03-03 23:23:52,348 [INFO] YGX: start
+2021-03-03 23:25:35,595 [INFO] YGX: start
+2021-03-03 23:26:23,629 [INFO] YGX: start
+2021-03-03 23:26:24,856 [INFO] YGX: active successfully
