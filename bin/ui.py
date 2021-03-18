@@ -167,9 +167,7 @@ class MainWindow:
             if not self.is_start:
                 break
             try:
-                print(self.send_num)
                 phone, msg = get_msg(file_name, self.send_num + 1)
-                print(int(phone), msg)
             except IOError as e1:
                 print(e1)
                 self.write_log('任务完成')
@@ -226,13 +224,12 @@ def send2(phone, msg):
     :param msg:
     :return:
     """
-    print('send2 %s' % phone)
     operation = Operation()
     operation.set_receiver(phone)
     operation.set_msg(msg)
     msg_num = operation.get_msg_num()
     operation.send_msg()
-    sleep(5)
+    sleep(20)
     msg_num2 = operation.get_msg_num()
     if msg_num < msg_num2:
         print('消息已发送')

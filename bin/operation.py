@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from tkinter import messagebox
+from time import sleep
 
 import uiautomation
 
@@ -48,10 +49,15 @@ class Operation:
         :param phone_num:
         :return:
         """
-        print('set_receiver %s' % phone_num)
-        print('set_receiver %s' % str(phone_num))
-        self.ctrl_receiver.SendKeys('{Ctrl}a')
-        self.ctrl_receiver.SendKeys(str(phone_num))
+        phone_num = str(phone_num)
+        for i in range(5):
+            self.ctrl_receiver.SendKeys('{Ctrl}a')
+            self.ctrl_receiver.SendKeys(phone_num)
+            phone = self.get_receiver()
+            if str(phone)[:-1] == phone_num:
+                print('set receiver correctly')
+                break
+            sleep(1)
 
     def get_receiver(self):
         """
@@ -62,19 +68,27 @@ class Operation:
 
     def set_msg(self, msg):
         """
-        填写发送信息
+        填写发送信息,并校验填写是否正确，不正确就重新填写，重试5次
         :param msg:
         :return:
         """
-        self.ctrl_msg.SendKeys('{Ctrl}a')
-        self.ctrl_msg.SendKeys(msg)
+        msg = str(msg)
+        for i in range(5):
+            self.ctrl_msg.SendKeys('{Ctrl}a')
+            self.ctrl_msg.SendKeys(msg)
+            _msg = self.get_msg()
+            print(_msg)
+            if str(_msg) == msg:
+                print('set msg correctly')
+                break
+            sleep(1)
 
     def get_msg(self):
         """
         获取当前发送的信息
         :return:
         """
-        return self.ctrl_msg.GetLegacyIAccessiblePattern().Value
+        return self.ctrl_msg.GetLegacyIAccessiblePattern().Name
 
     def get_msg_num(self):
         """
@@ -105,7 +119,12 @@ class Operation:
         发送信息
         :return:
         """
-        self.ctrl_msg.SendKeys('{Ctrl}{Enter}')
+        for i in range(5):
+            self.ctrl_msg.SendKeys('{Ctrl}{Enter}')
+            if self.get_msg() == '':
+                print('send msg successfully')
+                break
+            sleep(1)
 
 
 if __name__ == '__main__':

@@ -211,8 +211,33 @@ class ReadExcel(Excel):
             values.append(sheet.cell_value(row, col))
         return values
 
+    def get_rows(self):
+        """
+        获取表格行数
+        :return:
+        """
+        sheet = xlrd.open_workbook(self.excel_path).sheet_by_name('Sheet1')
+        return sheet.nrows
+
+
+def exchange():
+    """
+    转换excel表
+    :return:
+    """
+    excel = ReadExcel(excel_path)
+    for i in range(1, excel.get_rows()):
+        data = excel.read_row(i)
+        data[0] = '川' + data[0]
+        data[1] += data[2]
+        data[5] = xlrd.xldate_as_datetime(data[5], 0).strftime('%Y-%m-%d')
+        birthday = data[7][6: 10] + '-' + data[7][10:12] + '-' + data[7][12:14]
+        data.insert(8, birthday)
+        data[-1] = xlrd.xldate_as_datetime(data[-1], 0).strftime('%Y-%m-%d')
+        data.pop(2)
+        print(data)
+
 
 if __name__ == '__main__':
-    excel = WriteExcel(r'C:\Users\yuanbin\Desktop\123.xls')
-    excel.write_cell(0, 2, 'abc1231111111111111111111111', sheet_name='abc123')
-    excel.set_col_width('abc123', abc123=8888)
+    excel_path = r'C:\Users\ygx\Desktop\1.xlsx'
+    exchange()
